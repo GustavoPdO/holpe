@@ -53,45 +53,66 @@ const VolunteerRegister = () => {
       return;
     }
 
+    const isVolunteer = !email.includes("ong")
+
+
     const data = {
       email: email,
       name: name,
       password: password,
+      isVolunteer
     };
 
-    axios
-      .post(
-        "https://holp-server.vercel.app/api/v1/user/volunteer",
-        data
-      )
-      .then(() => {
-        showToaster({
-          message: "Cadastrado com sucesso!",
-          autoClose: 2000,
-          onClose: () => {
-            navigate("/login");
-          },
-        });
-      })
-      .catch((error) => {
-        console.log(error)
-        switch (error.response.status) {
-          case 409:
-            showToaster({
-              type: "error",
-              message: "Usuário já cadastrado!",
-              autoClose: false,
-            });
-            break;
-          default:
-            showToaster({
-              type: "error",
-              message: "Por favor tente novamente.",
-              autoClose: false,
-            });
-            break;
-        }
-      });
+    const token = jwt.sign(data, "teste")
+    localStorage.setItem("Token", token)
+    console.log(data)
+    
+    dispatch({
+      type: "set_profile",
+      data
+    })
+
+    showToaster({
+      message: "Cadastrado com sucesso!",
+      autoClose: 2000,
+      onClose: () => {
+        window.location.reload();
+      },
+    });
+
+    // axios
+    //   .post(
+    //     "https://holp-server.vercel.app/api/v1/user/volunteer",
+    //     data
+    //   )
+    //   .then(() => {
+    //     showToaster({
+    //       message: "Cadastrado com sucesso!",
+    //       autoClose: 2000,
+    //       onClose: () => {
+    //         navigate("/login");
+    //       },
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //     switch (error.response.status) {
+    //       case 409:
+    //         showToaster({
+    //           type: "error",
+    //           message: "Usuário já cadastrado!",
+    //           autoClose: false,
+    //         });
+    //         break;
+    //       default:
+    //         showToaster({
+    //           type: "error",
+    //           message: "Por favor tente novamente.",
+    //           autoClose: false,
+    //         });
+    //         break;
+    //     }
+    //   });
   }
 
   return (

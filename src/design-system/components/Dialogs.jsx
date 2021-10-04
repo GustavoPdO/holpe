@@ -16,7 +16,7 @@ import Phone from "@material-ui/icons/Phone"
 import SupervisorAccount from "@material-ui/icons/SupervisorAccount";
 
 export const EventDetails = ({closeModal, modal, applyToEvent, unapplyToEvent, selectedEvent, userType}) => {
-  const canUnapply = selectedEvent.volunteers.includes(selectedEvent.userId)
+  const canUnapply = !selectedEvent.volunteers.includes(selectedEvent.userId)
   const theme = useTheme()
     return (
         <Dialog onClose={closeModal} aria-labelledyby="dialog-title" open={modal} maxWidth={"md"} fullWidth>
@@ -112,7 +112,6 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
               <Button onClick={() => setShowUsers(!showUsers)}>
                 <AvatarGroup max={3} className="created-event-avatar">
                   {selectedEvent.volunteers.map((user) => {
-                    console.log(user)
                     return <Avatar alt={user.name} />
                   })}
                 </AvatarGroup>

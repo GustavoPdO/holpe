@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect, useContext } from "react"
 import { store} from "../store"
 import { trackPromise } from "react-promise-tracker"
 import axios from "axios"
+import jwt from "jsonwebtoken"
+
 import { Grid, Typography, Paper, Avatar, TextField, Button, IconButton, useTheme, Input } from "@material-ui/core"
 import { PhoneMask } from "../design-system/components/MaskedInputs"
 
@@ -10,25 +12,24 @@ import instagramLogo from "../assets/external-logos/instagram-brands.svg"
 import whatsappLogo from "../assets/external-logos/whatsapp-brands.svg"
 
 const UserProfile = (props) => {
-    const theme = useTheme()
-    const { state } = useContext(store)
+    const { state, dispatch } = useContext(store)
     const userType = state.userType;
 
-    const [name, setName] = useState("")
-    const [avatar, setAvatar] = useState(null)
-    const [description, setDescription] = useState("")
-    const [documentNumber, setDocumentNumber] = useState("")
-    const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [street, setStreet] = useState("")
-    const [number, setNumber] = useState("")
-    const [addressComplement, setAddressComplement] = useState("")
-    const [zipCode, setZipCode] = useState("")
-    const [city, setCity] = useState("")
-    const [uf, setUF] = useState("")
-    const [postal, setPostal] = useState("")
-    const [facebook, setFacebook] = useState("")
-    const [instagram, setInstagram] = useState("")
+    const [name, setName] = useState(state.name)
+    const [avatar, setAvatar] = useState(state.avatar)
+    const [description, setDescription] = useState(state.description)
+    const [documentNumber, setDocumentNumber] = useState(state.documentNumber)
+    const [email, setEmail] = useState(state.email)
+    const [phone, setPhone] = useState(state.phone)
+    const [street, setStreet] = useState(state.adress.street)
+    const [number, setNumber] = useState(state.adress.number)
+    const [addressComplement, setAddressComplement] = useState(state.adress.addressComplement)
+    const [zipCode, setZipCode] = useState(state.zipCode)
+    const [city, setCity] = useState(state.adress.city)
+    const [uf, setUF] = useState(state.adress.uf)
+    const [postal, setPostal] = useState(state.postal)
+    const [facebook, setFacebook] = useState(state.facebook)
+    const [instagram, setInstagram] = useState(state.instagram)
 
     const [isEditing, setIsEditing] = useState(false)
 
@@ -39,54 +40,81 @@ const UserProfile = (props) => {
         }
     }
 
-    useEffect(() => {
-        trackPromise (
-            axios.get(
-                `https://holp-server.vercel.app/api/v1/user/${userType}`, 
-                {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
-                }
-            )
-            .then(({ data }) => {
-                setName(data.name? data.name : "")
-                setAvatar(data.photo? URL.createObjectURL(data.photo) : null)
-                setEmail(data.email? data.email : "")
-                setStreet(data.address.street? data.address.street : "")
-                setNumber(data.address.number? data.address.number : "")
-                setUF(data.address.state? data.address.state : "")
-                setPostal(data.address.zipcode? data.address.zipcode : "")
-                setCity(data.address.city? data.address.city : "")
-                setPhone(data.phone? data.phone : "")
-                if(userType === "solicitant"){
-                    setDocumentNumber(data.cnpj? data.cnpj : "")
-                }            
-            })
-            .catch(error => console.log(error.response))
-        )
-    }, [])
+    // useEffect(() => {
+    //     trackPromise (
+    //         axios.get(
+    //             `https://holp-server.vercel.app/api/v1/user/${userType}`, 
+    //             {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
+    //             }
+    //         )
+    //         .then(({ data }) => {
+    //             setName(data.name? data.name : "")
+    //             setAvatar(data.photo? URL.createObjectURL(data.photo) : null)
+    //             setEmail(data.email? data.email : "")
+    //             setStreet(data.address.street? data.address.street : "")
+    //             setNumber(data.address.number? data.address.number : "")
+    //             setUF(data.address.state? data.address.state : "")
+    //             setPostal(data.address.zipcode? data.address.zipcode : "")
+    //             setCity(data.address.city? data.address.city : "")
+    //             setPhone(data.phone? data.phone : "")
+    //             if(userType === "solicitant"){
+    //                 setDocumentNumber(data.cnpj? data.cnpj : "")
+    //             }            
+    //         })
+    //         .catch(error => console.log(error.response))
+    //     )
+    // }, [])
 
     function editProfile() {
-        console.log("salvando")
-        axios.patch(
-            `https://holp-server.vercel.app/api/v1/user/${userType}`,
-            {
-                name: name,
-                photo: avatar,
-                email: email,
-                adress: {
-                    street: street,
-                    number: number,
-                    state: uf,
-                    zipcode: postal,
-                    city: city
-                },
-                phone: phone,
-                cpf: documentNumber,
-            },
-            {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
-            }
-        )
-        .then((response) => console.log(response))
-        .catch(error => console.log(error.response))
+        const isVolunteer = !email.includes("ong")
+
+        const { password, cnpj } = state;
+
+        const data = {
+          name,
+          email,
+          password,
+          adress: {
+            street,
+            number,
+            city,
+            uf
+          },
+          phone,
+          cnpj,
+          isVolunteer
+        };
+    
+        const token = jwt.sign(data, "teste")
+        localStorage.setItem("Token", token)
+    
+        dispatch({
+          type: "set_profile",
+          data
+        })
+
+        setIsEditing(false)
+        // axios.patch(
+        //     `https://holp-server.vercel.app/api/v1/user/${userType}`,
+        //     {
+        //         name: name,
+        //         photo: avatar,
+        //         email: email,
+        //         adress: {
+        //             street: street,
+        //             number: number,
+        //             state: uf,
+        //             zipcode: postal,
+        //             city: city
+        //         },
+        //         phone: phone,
+        //         cpf: documentNumber,
+        //     },
+        //     {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
+        //     }
+        // )
+        // .then((response) => console.log(response))
+        // .catch(error => console.log(error.response))
     }
 
     return (
@@ -211,7 +239,7 @@ const UserProfile = (props) => {
                                 multiline
                                 rows={3}
                                 inputProps={{
-                                    "maxlength": 240 
+                                    "maxLength": 240 
                                 }}
                                 color="secondary"
                                 label={

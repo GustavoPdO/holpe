@@ -24,6 +24,7 @@
     "@types/react": "^16.9.41",
     "axios": "^0.19.2",
     "cloudinary-react": "^1.5.1",
+    "faker": "^5.5.3",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",

@@ -30,7 +30,7 @@ const OrganizationRegister = () => {
   const [street, setStreet] = useState("")
   const [complement, setComplement] = useState("")
   const [number, setNumber] = useState("")
-  const [state, setState] = useState("")
+  const [uf, setUf] = useState("")
   const [city, setCity] = useState("")
   const [postal, setPostal] = useState("")
   const [password, setPassword] = useState("");
@@ -55,52 +55,71 @@ const OrganizationRegister = () => {
       return;
     }
 
+    const isVolunteer = !email.includes("ong")
+
     const data = {
-      name: name,
-      email: email,
-      password: password,
+      name,
+      email,
+      password,
       adress: {
-        street: street,
-        number: number,
-        city: city,
-        state: state
+        street,
+        number,
+        city,
+        uf
       },
-      phone: phone,
-      cnpj: cnpj,
+      phone,
+      cnpj,
+      isVolunteer
     };
 
-    axios
-      .post(
-        "http://holp-server.now.sh/api/v1/user/solicitant",
-        JSON.stringify(data)
-      )
-      .then(() => {
-        showToaster({
-          message: "Cadastrado com sucesso!",
-          autoClose: 2000,
-          onClose: () => {
-            navigate("/login");
-          },
-        });
-      })
-      .catch((error) => {
-        switch (error.response.status) {
-          case 409:
-            showToaster({
-              type: "error",
-              message: "ONG já cadastrada!",
-              autoClose: false,
-            });
-            break;
-          default:
-            showToaster({
-              type: "error",
-              message: "Por favor tente novamente.",
-              autoClose: false,
-            });
-            break;
-        }
-      });
+    const token = jwt.sign(data, "teste")
+    localStorage.setItem("Token", token)
+
+    dispatch({
+      type: "set_profile",
+      data
+    })
+
+    showToaster({
+      message: "Cadastrado com sucesso!",
+      autoClose: 2000,
+      onClose: () => {
+        window.location.reload();
+      },
+    });
+
+    // axios
+    //   .post(
+    //     "http://holp-server.now.sh/api/v1/user/solicitant",
+    //     JSON.stringify(data)
+    //   )
+    //   .then(() => {
+    //     showToaster({
+    //       message: "Cadastrado com sucesso!",
+    //       autoClose: 2000,
+    //       onClose: () => {
+    //         navigate("/login");
+    //       },
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     switch (error.response.status) {
+    //       case 409:
+    //         showToaster({
+    //           type: "error",
+    //           message: "ONG já cadastrada!",
+    //           autoClose: false,
+    //         });
+    //         break;
+    //       default:
+    //         showToaster({
+    //           type: "error",
+    //           message: "Por favor tente novamente.",
+    //           autoClose: false,
+    //         });
+    //         break;
+    //     }
+    //   });
   }
 
   function onNext(){
@@ -112,7 +131,7 @@ const OrganizationRegister = () => {
         toastMessage = name === "" ? "Por favor insira a razão social." : toastMessage
         break
       case 1:
-        toastMessage = state === "" ? "Por favor insira a UF." : toastMessage
+        toastMessage = uf === "" ? "Por favor insira a UF." : toastMessage
         toastMessage = city === "" ? "Por favor insira a cidade sede." : toastMessage
         toastMessage = postal === "" ? "Por favor insira o CEP." : toastMessage
         toastMessage = number === "" ? "Por favor insira o número." : toastMessage
@@ -250,8 +269,8 @@ const OrganizationRegister = () => {
                   label="UF"
                   id="state"
                   type="text"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
+                  value={uf}
+                  onChange={(e) => setUf(e.target.value)}
                 />
               </Grid>
             </Grid>

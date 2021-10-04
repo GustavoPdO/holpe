@@ -62,7 +62,7 @@ const Navbar = () => {
           <NavButton className="page-btn" onClick={() => navigate("/team")}>Equipe</NavButton>
         </Grid>
         <Grid item container md={1} alignItems="center" justify="center">
-          {userType.length > 0 ? (
+          {userType ? (
             <Fragment>
               <IconButton 
                 onClick={handleMenu}

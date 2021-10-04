@@ -4,8 +4,11 @@ export function authenticateUser() {
     const token = localStorage.getItem("Token")
     
     if(token) {
-        const userType = jwt.decode(token).isVolunteer ? "volunteer" : "solicitant"
-        return userType
+        const data = jwt.decode(token)
+        return {
+            ...data,
+            userType: data.isVolunteer ? "volunteer" : "solicitant"
+        }
     }
     return ""
 }

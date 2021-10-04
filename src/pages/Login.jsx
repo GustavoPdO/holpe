@@ -38,46 +38,62 @@ const Login = () => {
       return;
     }
 
+    const isVolunteer = !email.includes("ong")
+
     const data = {
       email: email,
       password: password,
+      isVolunteer
     };
 
-    axios
-      .post(
-        "https://holp-server.vercel.app/api/v1/auth",
-        data
-      )
-      .then((response) => {
-        const token = response.headers.authorization
-        localStorage.setItem("Token", token);
-        const userType = jwt.decode(token).isVolunteer
-        dispatch({
-          type: "login_success",
-          data: userType
-        })
-        showToaster({
-          message: "Autenticado com sucesso!",
-          autoClose: 2000
-        });
-      })
-      .catch((error) => {
-        switch (error.response.status) {
-          case 500:
-            showToaster({
-              type: "error",
-              message: "Por favor tente novamente.",
-              autoClose: false,
-            });
-            break;
-          default:
-            showToaster({
-              type: "error",
-              message: "Email ou senha inválidos.",
-              autoClose: false,
-            });
-        }
-      });
+    const token = jwt.sign(data, "teste")
+    localStorage.setItem("Token", token)
+
+    dispatch({
+      type: "set_profile",
+      data
+    })
+    
+    showToaster({
+      message: "Autenticado com sucesso!",
+      autoClose: 2000
+    });
+
+    // axios
+    //   .post(
+    //     "https://holp-server.vercel.app/api/v1/auth",
+    //     data
+    //   )
+    //   .then((response) => {
+    //     const token = response.headers.authorization
+    //     localStorage.setItem("Token", token);
+    //     const userType = jwt.decode(token).isVolunteer
+    //     dispatch({
+    //       type: "login_success",
+    //       data: userType
+    //     })
+    //     showToaster({
+    //       message: "Autenticado com sucesso!",
+    //       autoClose: 2000
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     switch (error.response.status) {
+    //       case 500:
+    //         showToaster({
+    //           type: "error",
+    //           message: "Por favor tente novamente.",
+    //           autoClose: false,
+    //         });
+    //         break;
+    //       default:
+    //         showToaster({
+    //           type: "error",
+    //           message: "Email ou senha inválidos.",
+    //           autoClose: false,
+    //         });
+    //     }
+    //   });
   }
 
   return (
