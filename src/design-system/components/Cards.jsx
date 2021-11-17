@@ -36,7 +36,7 @@ export const Event = withStyles(() => ({
           }}>
           <img
             src={props.photo ? props.photo : defaultImage}
-            alt={"imagem"}
+            alt={"capa do evento"}
             style={{
               height: "inherit",
               maxHeight: "180px",
@@ -112,7 +112,7 @@ export const Member = withStyles(() => ({
           }}>
           <img
             src={props.photo}
-            alt={props.photo}
+            alt={props.alt}
             style={{
               height: "120px",
               maxHeight: "120px",

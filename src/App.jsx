@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { Router, Redirect } from "@reach/router";
 import { ToastContainer } from "react-toastify";
+import VLibras from "@djpfs/react-vlibras"
 
 import { usePromiseTracker } from "react-promise-tracker"
 import Loader from "react-loader-spinner"
@@ -61,6 +62,7 @@ const PrivateRoute = (routeProps) => {
 
 const App = () => (
   <div>
+    <VLibras />
     <StateProvider>
       <ThemeProvider theme={holpe}>
         <Navbar />

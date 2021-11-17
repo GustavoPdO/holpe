@@ -48,7 +48,7 @@ export const IconButton = withStyles(() => ({
       <Grid item sm={2}>
         <img
           src={props.icon}
-          alt={props.alt}
+          alt=""
           style={{ height: "4vw", maxHeight: "36px", paddingTop: "20%" }}
         />
       </Grid>

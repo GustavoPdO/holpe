@@ -51,7 +51,7 @@ const Navbar = () => {
     <Fragment>
       <Appbar container alignItems="center" position="fixed" style={{zIndex: 1}}>
         <Grid item container xs={12} md={11} className="navbar">
-          <img src={logo} alt="logo" className="logo" />
+          <img src={logo} alt="logo do holpe" className="logo" />
           <NavButton className="page-btn" onClick={() => navigate("/")}>
             Home
           </NavButton>

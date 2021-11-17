@@ -181,7 +181,7 @@ const UserProfile = (props) => {
                                 <Grid item container sm={12} justify="space-between">
                                     <Grid item container sm={4} style={{paddingRight: "16px"}}>
                                         <Grid item container sm={2}>
-                                            <img src={facebookLogo} style={{height: "36px"}} />
+                                            <img src={facebookLogo} alt="logo do facebook" style={{height: "36px"}} />
                                         </Grid>
                                         <Grid item sm={10} style={{paddingLeft: "8px"}}>
                                             <Input
@@ -198,7 +198,7 @@ const UserProfile = (props) => {
                                     </Grid>
                                     <Grid item container sm={4} style={{padding: "0 16px"}}>
                                         <Grid item container sm={2}>
-                                            <img src={instagramLogo} style={{height: "36px"}} />
+                                            <img src={instagramLogo} alt="logo do instagram" style={{height: "36px"}} />
                                         </Grid>
                                         <Grid item sm={10} style={{paddingLeft: "8px"}}>
                                             <Input
@@ -215,7 +215,7 @@ const UserProfile = (props) => {
                                     </Grid>
                                     <Grid item container sm={4} style={{paddingLeft: "16px"}}>
                                         <Grid item container sm={2}>
-                                            <img src={whatsappLogo} style={{height: "36px", color: "red"}} />
+                                            <img src={whatsappLogo} alt="logo do whatsapp" style={{height: "36px", color: "red"}} />
                                         </Grid>
                                         <Grid item sm={10} style={{paddingLeft: "8px"}}>
                                             <Input
