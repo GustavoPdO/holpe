@@ -45,3 +45,22 @@ export function generateEventListWithQty(qty = 3) {
 
   return events;
 }
+
+export const mockedUser = {
+  name: faker.name.firstName(0) + " " + faker.name.lastName(),
+  avatar: faker.image.people(),
+  description: faker.lorem.lines(2),
+  documentNumber: faker.datatype.string(8),
+  email: faker.internet.email(),
+  phone: faker.phone.phoneNumber(),
+  address : {
+    street: faker.address.streetName(),
+    number: faker.datatype.number(999),
+    addressComplement: "",
+    postal: faker.address.zipCode(),
+    city: faker.address.cityName(),
+    uf: faker.address.state(true),
+  },
+  facebook: "",
+  instagram: ""
+}

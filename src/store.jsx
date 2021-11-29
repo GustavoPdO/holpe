@@ -1,7 +1,10 @@
 import React, { createContext, useReducer } from "react";
 import { authenticateUser } from "./services/auth"
 
+import { mockedUser } from "./data/mockedEvents";
+
 const initialState = {
+    ...mockedUser,
     ...authenticateUser()
 };
 const store = createContext(initialState);

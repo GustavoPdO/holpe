@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react"
-import { Avatar, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Typography, Button, useTheme, TextField, Input } from "@material-ui/core"
+import { Avatar, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Typography, Button, useTheme } from "@material-ui/core"
 import { AvatarGroup } from "@material-ui/lab"
 import Moment from "react-moment";
 
@@ -19,7 +19,7 @@ export const EventDetails = ({closeModal, modal, applyToEvent, unapplyToEvent, s
   const canUnapply = !selectedEvent.volunteers.includes(selectedEvent.userId)
   const theme = useTheme()
     return (
-        <Dialog onClose={closeModal} aria-labelledyby="dialog-title" open={modal} maxWidth={"md"} fullWidth>
+        <Dialog onClose={closeModal} aria-labelledby="dialog-title" open={modal} maxWidth={"md"} fullWidth>
           <DialogTitle id="dialog-title" style={{borderBottom: `solid ${theme.palette.secondary.main} 2px`}}>
             <Grid container justify="space-between">
               <Grid item>
@@ -85,10 +85,10 @@ export const EventDetails = ({closeModal, modal, applyToEvent, unapplyToEvent, s
             <Typography variant="h2">{selectedEvent.details}</Typography>
           </DialogContent>
           <DialogActions>
-            <Typography variant="h1" title="Número de voluntários">
+            <Typography variant="h1" title="E-mail de contato">
               <Email />&nbsp;{selectedEvent.email}
             </Typography>
-            <Typography variant="h1" title="Número de voluntários">
+            <Typography variant="h1" title="Telefone para contato">
               <Phone />&nbsp;{selectedEvent.phone? selectedEvent.phone : "Indisponível"}
             </Typography>
           </DialogActions>
@@ -100,7 +100,7 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
   const theme = useTheme()
   const [showUsers, setShowUsers] = useState(false)
   return (
-      <Dialog onClose={closeModal} aria-labelledyby="dialog-title" open={modal} maxWidth={"md"} fullWidth>
+      <Dialog onClose={closeModal} aria-labelledby="dialog-title" open={modal} maxWidth={"md"} fullWidth>
         <DialogTitle id="dialog-title" style={{borderBottom: `solid ${theme.palette.secondary.main} 2px`}}>
           <Grid container justify="space-between">
             <Grid item>
@@ -111,8 +111,8 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
             <Grid item sm={4} container justify="flex-end" alignItems="center">
               <Button onClick={() => setShowUsers(!showUsers)}>
                 <AvatarGroup max={3} className="created-event-avatar">
-                  {selectedEvent.volunteers.map((user) => {
-                    return <Avatar alt={user.name} />
+                  {selectedEvent.volunteers.map((user, index) => {
+                    return <Avatar key={name + index} alt={user.name} />
                   })}
                 </AvatarGroup>
               </Button>
@@ -130,20 +130,20 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
         <DialogContent>
           {showUsers ?
             selectedEvent.volunteers.map((user) => {
-              return <User id={user._id} photo={user.photo} name={user.name} email={user.email} removeUser={removeUser} />
+              return <User key={user._id} id={user._id} photo={user.photo} name={user.name} email={user.email} removeUser={removeUser} />
             })
           :
             <Fragment>
               <Grid container style={{marginBottom: "24px"}}>
                 <Grid item md={6}>
-                  <Typography variant="h1" title="Número de voluntários">
+                  <Typography variant="h1" title="Endereço">
                     <Location />: Rua das Flores, 123 - São Carlos
                   </Typography>
-                  <Typography variant="h1" title="Dia e horário do evento">
+                  <Typography variant="h1" title="Dia do evento">
                     <Calendar />:&nbsp; {" "}
                     <Moment date={selectedEvent.initialDate} format={"DD/MM/YYYY"} />{" "}
                   </Typography>
-                  <Typography variant="h1">
+                  <Typography variant="h1" title="Horário do evento">
                     <AccessAlarmIcon />:&nbsp; {" "}
                     <Moment date={selectedEvent.initialDate} format={"hh:mm"} />
                     &nbsp;ÀS&nbsp;
@@ -151,13 +151,13 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
                   </Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography variant="h1" title="Número de voluntários">
+                  <Typography variant="h1">
                     <Transportation />: Fornece Transporte
                   </Typography>
-                  <Typography variant="h1" title="Número de voluntários">
+                  <Typography variant="h1">
                     <Assignment />: Fornece Certificado
                   </Typography>
-                  <Typography variant="h1" title="Número de voluntários">
+                  <Typography variant="h1">
                     <Restaurant />: Fornece Alimentação
                   </Typography>
                 </Grid>
@@ -167,10 +167,10 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
           }
         </DialogContent>
         <DialogActions>
-          <Typography variant="h1" title="Número de voluntários">
+          <Typography variant="h1" title="E-mail de contato">
             <Email />&nbsp;{selectedEvent.email}
           </Typography>
-          <Typography variant="h1" title="Número de voluntários">
+          <Typography variant="h1" title="Telefone para contato">
             <Phone />&nbsp;{selectedEvent.phone? selectedEvent.phone : "Indisponível"}
           </Typography>
         </DialogActions>

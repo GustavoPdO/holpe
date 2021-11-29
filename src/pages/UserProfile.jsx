@@ -11,6 +11,8 @@ import facebookLogo from "../assets/external-logos/facebook-brands.svg"
 import instagramLogo from "../assets/external-logos/instagram-brands.svg"
 import whatsappLogo from "../assets/external-logos/whatsapp-brands.svg"
 
+import { mockedUser } from "../data/mockedEvents"
+
 const UserProfile = (props) => {
     const { state, dispatch } = useContext(store)
     const userType = state.userType;
@@ -21,17 +23,23 @@ const UserProfile = (props) => {
     const [documentNumber, setDocumentNumber] = useState(state.documentNumber)
     const [email, setEmail] = useState(state.email)
     const [phone, setPhone] = useState(state.phone)
-    const [street, setStreet] = useState(state.adress.street)
-    const [number, setNumber] = useState(state.adress.number)
-    const [addressComplement, setAddressComplement] = useState(state.adress.addressComplement)
-    const [zipCode, setZipCode] = useState(state.zipCode)
-    const [city, setCity] = useState(state.adress.city)
-    const [uf, setUF] = useState(state.adress.uf)
+    const [street, setStreet] = useState(state.address.street)
+    const [number, setNumber] = useState(state.address.number)
+    const [addressComplement, setAddressComplement] = useState(state.address.addressComplement)
+    const [city, setCity] = useState(state.address.city)
+    const [uf, setUF] = useState(state.address.uf)
     const [postal, setPostal] = useState(state.postal)
     const [facebook, setFacebook] = useState(state.facebook)
     const [instagram, setInstagram] = useState(state.instagram)
 
     const [isEditing, setIsEditing] = useState(false)
+
+    useEffect(() => {
+        dispatch({
+            type: "set_profile",
+            data: mockedUser
+          })
+    }, [])
 
     function imageUpload(event) {
         if (event.target.files && event.target.files[0]) {
@@ -174,17 +182,16 @@ const UserProfile = (props) => {
                                             className="settings-form"
                                             value={email}
                                             disabled={!isEditing}
-                                            disabled
                                         />
                                     </Grid>
                                 </Grid>
                                 <Grid item container sm={12} justify="space-between">
                                     <Grid item container sm={4} style={{paddingRight: "16px"}}>
-                                        <Grid item container sm={2}>
+                                        <Grid item container sm={2} alignItems="center">
                                             <img src={facebookLogo} alt="logo do facebook" style={{height: "36px"}} />
                                         </Grid>
                                         <Grid item sm={10} style={{paddingLeft: "8px"}}>
-                                            <Input
+                                            <TextField
                                                 color="secondary"
                                                 label="Facebook"
                                                 id="facebook"
@@ -197,11 +204,11 @@ const UserProfile = (props) => {
                                         </Grid>
                                     </Grid>
                                     <Grid item container sm={4} style={{padding: "0 16px"}}>
-                                        <Grid item container sm={2}>
+                                        <Grid item container sm={2} alignItems="center">
                                             <img src={instagramLogo} alt="logo do instagram" style={{height: "36px"}} />
                                         </Grid>
                                         <Grid item sm={10} style={{paddingLeft: "8px"}}>
-                                            <Input
+                                            <TextField
                                                 color="secondary"
                                                 label="Instagram"
                                                 id="instagram"
@@ -214,11 +221,11 @@ const UserProfile = (props) => {
                                         </Grid>
                                     </Grid>
                                     <Grid item container sm={4} style={{paddingLeft: "16px"}}>
-                                        <Grid item container sm={2}>
-                                            <img src={whatsappLogo} alt="logo do whatsapp" style={{height: "36px", color: "red"}} />
+                                        <Grid item container sm={2} alignItems="center">
+                                            <img src={whatsappLogo} alt="logo do whatsapp" style={{height: "36px"}} />
                                         </Grid>
                                         <Grid item sm={10} style={{paddingLeft: "8px"}}>
-                                            <Input
+                                            <TextField
                                                 color="secondary"
                                                 label="WhatsApp"
                                                 id="whatsapp"
@@ -227,7 +234,6 @@ const UserProfile = (props) => {
                                                 value={phone}
                                                 disabled={!isEditing}
                                                 onChange={(e) => setPhone(e.target.value)}
-                                                //inputComponent={PhoneMask}
                                             />
                                         </Grid>
                                     </Grid>
