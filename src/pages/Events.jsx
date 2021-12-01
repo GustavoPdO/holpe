@@ -234,20 +234,20 @@ const Events = () => {
               </Grid>
             </Grid>
           : null }
-        <Grid item container>
-          {selectedEvent ?
-            <EventDetails
-              closeModal={closeDetailsModal}
-              modal={detailsModal}
-              applyToEvent={applyToEvent}
-              unapplyToEvent={unapplyToEvent}
-              selectedEvent={selectedEvent}
-              userType={userType}
-              userID={userID}
-            />
-          : null }
+        <Grid item container style={{gap: "1rem"}}>
           {renderEventList()}
         </Grid>
+        {selectedEvent ?
+          <EventDetails
+            closeModal={closeDetailsModal}
+            modal={detailsModal}
+            applyToEvent={applyToEvent}
+            unapplyToEvent={unapplyToEvent}
+            selectedEvent={selectedEvent}
+            userType={userType}
+            userID={userID}
+          />
+        : null }
       </Grid>
     </div>
   );

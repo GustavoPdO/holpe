@@ -35,10 +35,8 @@ export const LoginButton = withStyles({
 
 export const IconButton = withStyles(() => ({
   root: {
-    height: "8vh",
     minHeight: "50px",
-    width: "18vw",
-    minWidth: "200px",
+    width: "240px",
     borderRadius: "16px",
     margin: "8px",
   },
@@ -53,7 +51,7 @@ export const IconButton = withStyles(() => ({
         />
       </Grid>
       <Grid item xs={12} sm={10}>
-        {props.msg}
+        <span>{props.msg}</span>
       </Grid>
     </Grid>
   </Button>

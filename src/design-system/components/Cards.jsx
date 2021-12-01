@@ -18,8 +18,6 @@ import Calendar from "@material-ui/icons/Event";
 export const Event = withStyles(() => ({
   root: {
     backgroundColor: "#E2FAFC",
-    width: "100%",
-    margin: "8px",
     minHeight: "200px",
     borderRadius: "8px",
   },
@@ -27,12 +25,17 @@ export const Event = withStyles(() => ({
   const theme = useTheme();
   return (
     <Paper {...props}>
-      <Grid container style={{height: "100%", width: "100%"}}>
-        <Grid item container justify="center"
+      <Grid 
+        container style={{
+          display: "flex",
+          flexWrap: "nowrap",
+          height: "100%", 
+          width: "100%", 
+          padding: "1rem"
+        }}>
+        <Grid item justify="center"
           style={{
-            flexGrow: 0,
-            maxWidth: "30%",
-            flexBasis: "30%"
+            flexGrow: 1
           }}>
           <img
             src={props.photo ? props.photo : defaultImage}
@@ -41,45 +44,40 @@ export const Event = withStyles(() => ({
               height: "inherit",
               maxHeight: "180px",
               margin: "auto",
-              padding: "10px",
+              marginRight: "1rem"
             }}
           />
         </Grid>
-        <Grid item container
-          style={{
-            flexGrow: 0,
-            maxWidth: "70%",
-            flexBasis: "70%",
-            padding: "8px 10px 24px 0",
-          }}>
+        <Grid item container style={{flexGrow: 3}}>
           <Grid
             item
             style={{
               width: "100%",
+              height: "min-content",
+              paddingBottom: "0.5rem",
               borderBottom: `solid ${theme.palette.secondary.main} 2px`,
-              marginBottom: "1vh",
-              height: "25%",
+              marginBottom: "1rem",
             }}
           >
             <Typography variant="h3">{props.name}</Typography>
           </Grid>
-          <Grid item style={{ height: "65%" }}>
+          <Grid item>
             <Typography variant="h2">{props.summary}</Typography>
           </Grid>
-          <Grid item container justify="space-around" style={{ height: "10%" }}>
+          <Grid item container justify="space-around" alignItems="flex-end">
             <Typography variant="h1" title="Número de voluntários">
               <SupervisorAccount />: {props.volunteers}/{props.vacancies}
             </Typography>
             <Typography variant="h1" title="Dia e horário do evento">
-              <Calendar />:{" "}
+              <Calendar />:&nbsp;
               <Moment date={props.initialDate} format={"DD/MM/YYYY"} />{" "}
               &nbsp;&nbsp;
-              <AccessAlarmIcon />:{" "}
+              <AccessAlarmIcon />:&nbsp;
               <Moment date={props.initialDate} format={"hh:mm"} />
               &nbsp;ÀS&nbsp;
               <Moment date={props.finalDate} format={"hh:mm"} />
             </Typography>
-            <Button onClick={props.openModal} style={{backgroundColor: "transparent"}}>
+            <Button onClick={props.openModal} style={{backgroundColor: "transparent", padding: 0}}>
               <Typography variant="h1">
                 SAIBA MAIS
               </Typography>
@@ -94,8 +92,7 @@ export const Event = withStyles(() => ({
 export const Member = withStyles(() => ({
   root: {
     backgroundColor: "#E2FAFC",
-    width: "45%",
-    margin: "8px",
+    maxWidt: "600px",
     minHeight: "140px",
     borderRadius: "8px",
   },
@@ -103,12 +100,16 @@ export const Member = withStyles(() => ({
   const theme = useTheme();
   return (
     <Paper {...props}>
-      <Grid container style={{height: "100%", width: "100%"}}>
-        <Grid item container justify="center"
+      <Grid container style={{
+        display: "flex",
+        flexWrap: "nowrap",
+        height: "100%", 
+        width: "100%",
+        padding: "1rem"
+      }}>
+        <Grid item justify="center"
           style={{
-            flexGrow: 0,
-            maxWidth: "30%",
-            flexBasis: "30%"
+            flexGrow: 1
           }}>
           <img
             src={props.photo}
@@ -117,30 +118,24 @@ export const Member = withStyles(() => ({
               height: "120px",
               maxHeight: "120px",
               margin: "auto",
-              padding: "10px",
+              marginRight: "1rem",
               borderRadius: "24px"
             }}
           />
         </Grid>
-        <Grid item container
-          style={{
-            flexGrow: 0,
-            maxWidth: "70%",
-            flexBasis: "70%",
-            padding: "8px 10px 24px 8px",
-          }}>
+        <Grid item container direction="column">
           <Grid
             item
             style={{
               width: "100%",
+              paddingBottom: "0.5rem",
               borderBottom: `solid ${theme.palette.secondary.main} 2px`,
-              marginBottom: "1vh",
-              height: "25%",
+              marginBottom: "1rem",
             }}
           >
             <Typography variant="h1">{props.name}</Typography>
           </Grid>
-          <Grid item style={{ height: "65%" }}>
+          <Grid item>
             <Typography variant="h1">{props.email}</Typography>
           </Grid>
         </Grid>
@@ -153,7 +148,6 @@ export const ThemedPaper = withStyles(() => ({
   root: {
     backgroundColor: "#E2FAFC",
     width: "60vw",
-    height: "calc(60vw / 5)",
     margin: "auto",
     minHeight: "200px",
     borderRadius: "8px",
@@ -162,18 +156,18 @@ export const ThemedPaper = withStyles(() => ({
   const theme = useTheme();
   return (
     <Paper {...props}>
-      <Grid container style={{height: "100%", width: "100%", padding: "10px"}}>
+      <Grid container style={{width: "100%", padding: "1rem"}}>
         <Grid
           item
           style={{
             width: "100%",
+            height: "min-content",
             borderBottom: `solid ${theme.palette.secondary.main} 2px`,
-            marginBottom: "1vh",
-            height: "25%",
+            marginBottom: "1rem",
           }}
         >
-          <Typography variant="h3">{props.name}</Typography>
-        </Grid>
+          <Typography variant="h3" component="h1">{props.name}</Typography>
+        </Grid>         
         <Grid item>
           {props.text}
         </Grid>
@@ -188,7 +182,6 @@ export const User = withStyles(() => ({
     margin: "16px"
   },
 }))((props) => {
-  const theme = useTheme();
   return (
     <Grid container {...props}>
       <Grid item xs={2}>

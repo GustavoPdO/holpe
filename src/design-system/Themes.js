@@ -24,7 +24,7 @@ export const holpe = createMuiTheme({
     ],
     subtitle1: {
       fontWeight: 100,
-      fontSize: "3vw",
+      fontSize: "3rem",
       textAlign: "center",
       lineHeight: 1,
       marginTop: "8px",
@@ -32,14 +32,13 @@ export const holpe = createMuiTheme({
     },
     subtitle2: {
       fontWeight: 100,
-      fontSize: "1.5vw",
+      fontSize: "1.5rem",
       textAlign: "center",
       lineHeight: 1,
       color: "#208bb3",
     },
     h4: {
       color: "#208bb3",
-      marginBottom: "5vh",
     },
     h3: {
       color: "#6d2d54",
@@ -48,7 +47,7 @@ export const holpe = createMuiTheme({
     },
     h2: {
       fontWeight: 100,
-      fontSize: "1.4vw",
+      fontSize: "1.2rem",
       textAlign: "start",
       color: "#208bb3",
     },
@@ -61,6 +60,7 @@ export const holpe = createMuiTheme({
       textDecoration: "none",
       display: "flex",
       alignItems: "center",
+      lineHeight: 1
     },
   },
   overrides: {

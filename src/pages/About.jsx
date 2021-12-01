@@ -20,7 +20,7 @@ const About = () => {
             <ThemedPaper 
               name={"Quem somos?"}
               text={
-                <Typography variant="h2">
+                <Typography variant="h2" component="p">
                   Uma iniciativa para auxiliar na área de trabalhos voluntários formado por alunos do ICMC da USP e esta é uma proposta sem fins lucrativos. Caso tenha alguma dúvida, crítica, sugestão, ou queira apenas nos dar um oi, por favor, use o menu contato para falar com a gente :)
                   <br/><br/>
                   Seja você também um voluntário!
@@ -34,7 +34,7 @@ const About = () => {
             <ThemedPaper 
               name={"A Ideia"}
               text={
-                <Typography variant="h2">
+                <Typography variant="h2" component="p">
                   Visamos facilitar a conexão entre grupos ou ongs que precisam de ajuda para realizarem trabalho voluntário com pessoas em busca de oportunidades para isso. 
                   <br/>
                   Esperamos que esta iniciativa faça aumentar o número de voluntários nas mais variadas áreas e, com isso, ajudar tanto grupos ou ongs a preencher suas vagas, quanto pessoas interessadas em se voluntariar nas tarefas.

@@ -23,7 +23,7 @@ export const EventDetails = ({closeModal, modal, applyToEvent, unapplyToEvent, s
           <DialogTitle id="dialog-title" style={{borderBottom: `solid ${theme.palette.secondary.main} 2px`}}>
             <Grid container justify="space-between">
               <Grid item>
-                <Typography variant="h3" style={{marginBottom: "8px"}}>
+                <Typography variant="h3" component="h1" style={{marginBottom: "8px"}}>
                   {selectedEvent.name} com {selectedEvent.organization}
                 </Typography>
               </Grid>
@@ -55,40 +55,40 @@ export const EventDetails = ({closeModal, modal, applyToEvent, unapplyToEvent, s
           </DialogTitle>
           <DialogContent>
             <Grid container style={{marginBottom: "24px"}}>
-              <Grid item md={6}>
-                <Typography variant="h1" title="Número de voluntários">
+              <Grid item container md={6} direction="column" style={{gap: "0.5rem"}}>
+                <Typography variant="h1" component="p" title="Número de voluntários">
                   <Location />: Rua das Flores, 123 - São Carlos
                 </Typography>
-                <Typography variant="h1" title="Dia e horário do evento">
+                <Typography variant="h1" component="p" title="Dia do evento">
                   <Calendar />:&nbsp; {" "}
                   <Moment date={selectedEvent.initialDate} format={"DD/MM/YYYY"} />{" "}
                 </Typography>
-                <Typography variant="h1">
+                <Typography variant="h1" component="p" title="Horário do evento">
                   <AccessAlarmIcon />:&nbsp; {" "}
                   <Moment date={selectedEvent.initialDate} format={"hh:mm"} />
                   &nbsp;ÀS&nbsp;
                   <Moment date={selectedEvent.finalDate} format={"hh:mm"} />
                 </Typography>
               </Grid>
-              <Grid item md={6}>
-                <Typography variant="h1" title="Número de voluntários">
+              <Grid item container md={6} direction="column" style={{gap: "0.5rem"}}>
+                <Typography variant="h1" component="p">
                   <Transportation />: Fornece Transporte
                 </Typography>
-                <Typography variant="h1" title="Número de voluntários">
+                <Typography variant="h1" component="p">
                   <Assignment />: Fornece Certificado
                 </Typography>
-                <Typography variant="h1" title="Número de voluntários">
+                <Typography variant="h1" component="p">
                   <Restaurant />: Fornece Alimentação
                 </Typography>
               </Grid>
             </Grid>
-            <Typography variant="h2">{selectedEvent.details}</Typography>
+            <Typography variant="h2" component="p">{selectedEvent.details}</Typography>
           </DialogContent>
           <DialogActions>
-            <Typography variant="h1" title="E-mail de contato">
+            <Typography variant="h1" component="p" title="E-mail de contato">
               <Email />&nbsp;{selectedEvent.email}
             </Typography>
-            <Typography variant="h1" title="Telefone para contato">
+            <Typography variant="h1" component="p" title="Telefone para contato">
               <Phone />&nbsp;{selectedEvent.phone? selectedEvent.phone : "Indisponível"}
             </Typography>
           </DialogActions>
