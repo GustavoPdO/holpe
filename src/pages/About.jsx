@@ -14,7 +14,7 @@ const About = () => {
         <Grid item container alignItems="center" style={{height: "50%", padding: "16px"}}>
           <Grid item sm={1} />
           <Grid item sm={3}>
-            <img src={about_1} alt="Girl helping a guy on wheelchair" style={{height: "35vh", width: "35vh"}} />
+            <img src={about_1} alt="Mulher empurrando um homem acenando enquanto está sentado numa cadeira de rodas" style={{height: "35vh", width: "35vh"}} />
           </Grid>
           <Grid item container sm={8} alignContent="center" style={{height: "100%"}}>
             <ThemedPaper 
@@ -43,7 +43,7 @@ const About = () => {
             />
           </Grid>
           <Grid item container sm={3} justify="flex-end">
-            <img src={about_2} alt="Two people planting a sapling" style={{height: "35vh", width: "35vh"}} />
+            <img src={about_2} alt="Duas pessoas plantando uma muda" style={{height: "35vh", width: "35vh"}} />
           </Grid>
           <Grid item sm={1} />
         </Grid>
