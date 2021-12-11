@@ -28,7 +28,7 @@ export const EventDetails = ({closeModal, modal, applyToEvent, unapplyToEvent, s
                 </Typography>
               </Grid>
               <Grid item sm={3} container justify="flex-end">
-                <Typography variant="h1" title="Número de voluntários" style={{marginBottom: "0px"}}>
+                <Typography variant="h1" component="span" title="Número de voluntários" style={{marginBottom: "0px"}}>
                   <SupervisorAccount />: {selectedEvent.volunteers.length}/{selectedEvent.totalVacancies}
                 </Typography>
                 {userType === "volunteer"
@@ -101,41 +101,56 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
   const [showUsers, setShowUsers] = useState(false)
   return (
       <Dialog onClose={closeModal} aria-labelledby="dialog-title" open={modal} maxWidth={"md"} fullWidth>
-        <DialogTitle id="dialog-title" style={{borderBottom: `solid ${theme.palette.secondary.main} 2px`}}>
-          <Grid container justify="space-between">
-            <Grid item>
-              <Typography variant="h3" style={{marginBottom: "8px"}}>
+        <DialogTitle id="dialog-title" style={{borderBottom: `solid ${theme.palette.secondary.main} 2px`, marginBottom: "0.5rem"}}>
+          <Grid container justify="space-between" alignItems="flex-end">
+            <Grid item  style={{paddingBottom: "0.5rem"}}>
+              <Typography variant="h3">
                 {selectedEvent.name}
               </Typography>
             </Grid>
-            <Grid item sm={4} container justify="flex-end" alignItems="center">
-              <Button onClick={() => setShowUsers(!showUsers)}>
-                <AvatarGroup max={3} className="created-event-avatar">
-                  {selectedEvent.volunteers.map((user, index) => {
-                    return <Avatar key={name + index} alt={user.name} />
-                  })}
-                </AvatarGroup>
-              </Button>
-              <Button 
-                variant="contained" 
-                color="secondary" 
-                style={{marginLeft: "16px", height: "80%"}}
-                onClick={deleteEvent}
-                disabled={selectedEvent.volunteers.length === selectedEvent.totalVacancies}>
-                  CANCELAR EVENTO
-              </Button>
+            <Grid item container xs={12} md={5} spacing={2} alignItems="center" style={{paddingBottom: "0.5rem"}}>
+              <Grid item container xs={12} sm={2} md style={{height: "60px"}}>
+                {(selectedEvent.volunteers.length > 0 && !showUsers) &&
+                  <Button onClick={() => setShowUsers(true)}>
+                    <AvatarGroup max={3} className="created-event-avatar">
+                      {selectedEvent.volunteers.map((user, index) => {
+                        return <Avatar key={name + index} src={user.avatar} alt={user.name}/>
+                      })}
+                    </AvatarGroup>
+                  </Button>
+                }
+                {showUsers && 
+                    <Button 
+                      variant="contained" 
+                      color="secondary" 
+                      style={{minWidth: "160px", height: "100%"}}
+                      onClick={() => setShowUsers(false)}>
+                        DETALHES
+                    </Button>
+                }
+              </Grid>
+              <Grid item sm={10} md style={{height: "60px"}}>
+                <Button 
+                  variant="contained" 
+                  color="secondary" 
+                  onClick={deleteEvent}
+                  style={{minWidth: "160px", height: "100%"}}
+                  disabled={selectedEvent.volunteers.length > 0}>
+                    CANCELAR EVENTO
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </DialogTitle>
         <DialogContent>
-          {showUsers ?
-            selectedEvent.volunteers.map((user) => {
-              return <User key={user._id} id={user._id} photo={user.photo} name={user.name} email={user.email} removeUser={removeUser} />
-            })
-          :
-            <Fragment>
-              <Grid container style={{marginBottom: "24px"}}>
-                <Grid item md={6}>
+          <Grid container spacing={2}>
+            {showUsers ?
+              selectedEvent.volunteers.map((user) => {
+                return <User key={user._id} id={user._id} photo={user.avatar} name={user.name} email={user.email} removeUser={removeUser} />
+              })
+            :
+              <>
+                <Grid item container direction="column" sm={12} md={6} spacing={2}>
                   <Typography variant="h1" title="Endereço">
                     <Location />: Rua das Flores, 123 - São Carlos
                   </Typography>
@@ -146,11 +161,11 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
                   <Typography variant="h1" title="Horário do evento">
                     <AccessAlarmIcon />:&nbsp; {" "}
                     <Moment date={selectedEvent.initialDate} format={"hh:mm"} />
-                    &nbsp;ÀS&nbsp;
+                    &nbsp;ÀS&nbsp;vc
                     <Moment date={selectedEvent.finalDate} format={"hh:mm"} />
                   </Typography>
                 </Grid>
-                <Grid item md={6}>
+                <Grid item container direction="column" sm={12} md={6} spacing={2}>
                   <Typography variant="h1">
                     <Transportation />: Fornece Transporte
                   </Typography>
@@ -161,10 +176,12 @@ export const OrganizationEventDetails = ({closeModal, modal, deleteEvent, remove
                     <Restaurant />: Fornece Alimentação
                   </Typography>
                 </Grid>
-              </Grid>
-              <Typography variant="h2">{selectedEvent.details}</Typography>
-            </Fragment>
-          }
+                <Grid item xs={12}>
+                  <Typography variant="h2">{selectedEvent.details}</Typography>
+                </Grid>
+              </>
+            }
+          </Grid>
         </DialogContent>
         <DialogActions>
           <Typography variant="h1" title="E-mail de contato">

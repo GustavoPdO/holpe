@@ -1,30 +1,33 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { store } from "../store"
-import { trackPromise } from "react-promise-tracker"
-import axios from "axios";
-import { cloneDeep } from "lodash";
 import { useTheme, Grid, Typography, Button } from "@material-ui/core";
 
 import { Event } from "../design-system/components/Cards";
 import { EventDetails } from "../design-system/components/Dialogs"
-import { showToaster } from "../design-system/components/Toaster";
 
 import "../stylesheets/events.css";
 
-import { generateEventList } from "../data/mockedEvents";
+import { generateEventList, mockedUser } from "../data/mockedEvents";
 
 const Events = () => {
   const theme = useTheme();
-  const { state } = useContext(store)
+  const { state, dispatch } = useContext(store)
   const userType = state.userType;
 
-  const [userID, setUserID] = useState("")
-  const [events, setEvents] = useState(generateEventList());
+  const [userID] = useState("")
+  const [events] = useState(generateEventList());
   const [appliedEvents, setAppliedEvents] = useState(generateEventList())
   const [unappliedEvents, setUnappliedEvents] = useState(generateEventList())
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showAppliedEvents, setShowAppliedEvents] = useState(true)
+
+  useEffect(() => {
+    dispatch({
+        type: "set_profile",
+        data: mockedUser
+      })
+}, [])
 
   function openDetailsModal(item, id){
     item.userId = id;
@@ -41,122 +44,13 @@ const Events = () => {
     setUnappliedEvents(appliedEvents.filter(event => event._id !== selectedEvent._id))
     setAppliedEvents([...unappliedEvents, selectedEvent])
     setSelectedEvent(undefined)
-    // axios
-    //   .post("https://holp-server.vercel.app/api/v1/event/apply", 
-    //     {
-    //       eventId: selectedEvent._id
-    //     },
-    //     {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }}
-    //   )
-    //   .then((response) => {
-    //     showToaster({
-    //       message: "Inscrição feita com sucesso!",
-    //       autoClose: 2000,
-    //       onClose: () => {
-    //         location.reload();
-    //       },
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.warn("error", error);
-    //     showToaster({
-    //       type: "error",
-    //       message: "Falha na inscrição!",
-    //       autoClose: 2000,
-    //       onClose: () => {
-    //         location.reload();
-    //       },
-    //     });
-    //   })
   }
 
   function unapplyToEvent() {
     setAppliedEvents(appliedEvents.filter(event => event._id !== selectedEvent._id))
     setUnappliedEvents([...unappliedEvents, selectedEvent])
     setSelectedEvent(undefined)
-    // axios
-    //   .post("https://holp-server.vercel.app/api/v1/event/unapply", 
-    //     {
-    //       eventId: selectedEvent._id
-    //     },
-    //     {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }}
-    //   )
-    //   .then((response) => {
-    //     showToaster({
-    //       message: "Inscrição cancelada com sucesso!",
-    //       autoClose: 2000,
-    //       onClose: () => {
-    //         location.reload();
-    //       },
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.warn("error", error);
-    //     showToaster({
-    //       type: "error",
-    //       message: "Falha ao cancelar inscrição!",
-    //       autoClose: 2000,
-    //       onClose: () => {
-    //         location.reload();
-    //       },
-    //     });
-    //   })
   }
-
-  // useEffect(() => {
-  //   let events = [];
-  //   let orgName;
-  //   let orgMail;
-  //   let orgPhone;
-
-  //   trackPromise(
-  //     axios
-  //       .get("https://holp-server.vercel.app/api/v1/user/solicitant")
-  //       .then((response) => {
-  //         response.data.map((org) => {
-  //           orgName = org.name;
-  //           orgMail = org.email;
-  //           orgPhone = org.phone;
-  //           org.events.map((event) => {
-  //             event.organization = orgName
-  //             event.email = orgMail
-  //             event.phone = orgPhone
-  //             events.push(event);
-  //           });
-  //         });
-  //         setEvents(events);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.response);
-  //       })
-  //   )
-  // }, []);
-
-  // useEffect(() => {
-  //   if(userType === "volunteer") {
-  //     axios.get(
-  //       `https://holp-server.vercel.app/api/v1/user/${userType}`, 
-  //       {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
-  //       }
-  //   )
-  //   .then(({ data }) => {
-  //       setUserID(data._id)          
-  //   })
-  //   .catch(error => console.log(error.response))
-  //   }
-  // }, [events])
-
-  // useEffect(() => {
-  //   if(userID !== "" && events.length > 0) {
-  //     let appliedEventsList = cloneDeep(events)
-  //     appliedEventsList = appliedEventsList.filter((event) => event.volunteers.includes(userID))
-  //     setAppliedEvents(appliedEventsList)
-
-  //     let unappliedEventsList = cloneDeep(events)
-  //     unappliedEventsList = unappliedEventsList.filter((event) => !event.volunteers.includes(userID))
-  //     setUnappliedEvents(unappliedEventsList)
-  //   }
-  // }, [userID, events])
 
   function renderEventList() {
     if(userType !== "volunteer") {
@@ -222,14 +116,14 @@ const Events = () => {
                   backgroundColor: showAppliedEvents ? `#E2FAFC` : "transparent"
                 }}>
                 <Button onClick={() => setShowAppliedEvents(true)} >
-                  <Typography variant="h3">Inscrições</Typography>
+                  <Typography variant="h3" component="span">Inscrições</Typography>
                 </Button>
               </Grid>
               <Grid item xs={6} style={{
                   backgroundColor: showAppliedEvents ? "transparent" : `#E2FAFC`
                 }}>
                 <Button onClick={() => setShowAppliedEvents(false)} >
-                  <Typography variant="h3">Novos Eventos</Typography>
+                  <Typography variant="h3" component="span">Novos Eventos</Typography>
                 </Button>
               </Grid>
             </Grid>

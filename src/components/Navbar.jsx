@@ -49,9 +49,9 @@ const Navbar = () => {
 
   return (
     <Fragment>
-      <Appbar container alignItems="center" position="fixed" style={{zIndex: 1}}>
-        <Grid item container xs={12} md={11} className="navbar">
-          <img src={logo} alt="logo do holpe" className="logo" />
+      <Appbar container component="nav" alignItems="center" position="fixed" style={{zIndex: 1, padding: "0 0.75rem"}}>
+        <Grid item container xs={11} className="navbar">
+          <img src={logo} alt="" className="logo" />
           <NavButton className="page-btn" onClick={() => navigate("/")}>
             Home
           </NavButton>
@@ -61,13 +61,14 @@ const Navbar = () => {
           </NavButton>
           <NavButton className="page-btn" onClick={() => navigate("/team")}>Equipe</NavButton>
         </Grid>
-        <Grid item container md={1} alignItems="center" justify="center">
+        <Grid item container xs={1} alignItems="center" justify="center">
           {userType ? (
             <Fragment>
               <IconButton 
                 onClick={handleMenu}
+                title="Menu do usuário"
                 style={{backgroundColor: "#E2FAFC", color: theme.palette.secondary.main, width: "7vh", height: "7vh"}}>
-                {userType === "volunteer" ?
+                {userType.userType === "volunteer" ?
                   <Person />
                 :
                   <Organization />
@@ -88,7 +89,7 @@ const Navbar = () => {
                 open={Boolean(menuAnchor)}
                 onClose={handleMenu}
               >
-                {userType === "solicitant" ?
+                {userType.userType === "solicitant" ?
                   <Fragment>
                     <MenuItem onClick={enterEventCreation}>Criar Evento</MenuItem>
                     <MenuItem onClick={enterCreatedEvents}>Eventos Criados</MenuItem>

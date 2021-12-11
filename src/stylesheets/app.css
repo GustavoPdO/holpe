@@ -5,7 +5,7 @@ body {
 
 .footer {
   background-color: #e2fafc;
-  height: 9vh;
+  height: 72px;
 }
 
 .footer > .logo {
@@ -13,9 +13,9 @@ body {
   margin: 0px 32px;
 }
 
-.footer > span {
-  color: #0179a7;
-  font-size: 1.2vw;
+.footer > p {
+  color: black;
+  font-size: 1rem;
 }
 
 .settings-row {
@@ -24,7 +24,7 @@ body {
 
 .settings-form {
   width: 100%;
-  font-size: 1.2vw;
+  font-size: 1rem;
 }
 
 .config-bg {

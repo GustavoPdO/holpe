@@ -17,16 +17,8 @@ const createdEvent = () => {
     const [detailsModal, setDetailsModal] = useState(false);
 
     function openDetailsModal(item) {
-        let volunteer = cloneDeep(item)
-
-        volunteer.volunteers = users.filter(
-            function(e) {
-                return item.volunteers.indexOf(e._id) !== -1
-            }
-        )
-       
         setDetailsModal(true);
-        setSelectedEvent(volunteer)
+        setSelectedEvent(item)
     }
 
     function closeDetailsModal() {
@@ -36,36 +28,11 @@ const createdEvent = () => {
 
     function deleteEvent(){
         setEvents(events.filter(event => event._id !== selectedEvent._id))
+        showToaster({
+            message: "Evento cancelado com sucesso!",
+            autoClose: 2000
+        });
         setSelectedEvent(undefined)
-        // axios
-        //     .delete("https://holp-server.vercel.app/api/v1/event", {
-        //         headers: { 
-        //             Authorization: "Bearer " + localStorage.getItem("Token") 
-        //         },
-        //         data: {
-        //             id: selectedEvent._id
-        //         }
-        //     })
-        //     .then((response) => {
-        //         showToaster({
-        //           message: "Evento deletado com sucesso!",
-        //           autoClose: 2000,
-        //           onClose: () => {
-        //             location.reload();
-        //           },
-        //         });
-        //     })
-        //     .catch((error) => {
-        //         console.warn("error", error);
-        //         showToaster({
-        //           type: "error",
-        //           message: "Falha ao deletar o evento!",
-        //           autoClose: 2000,
-        //           onClose: () => {
-        //             location.reload();
-        //           },
-        //         });
-        //     })
     }
 
     function removeUser(id) {
@@ -73,77 +40,14 @@ const createdEvent = () => {
         let ids = []
         volunteers.map((user) => ids.push(user._id))
 
-        const data = {
-            id: selectedEvent._id,
-            volunteers: ids
-        }
-        axios
-            .patch("https://holp-server.vercel.app/api/v1/event",
-                data,
-                {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }}
-            )
-            .then((response) => {
-                showToaster({
-                    message: "Voluntário removido com sucesso!",
-                    autoClose: 2000,
-                    onClose: () => {
-                      location.reload();
-                    },
-                  });
-            })
-            .catch((error) => {
-                console.warn("error", error)
-                showToaster({
-                    message: "Falha ao remover voluntário!",
-                    autoClose: 2000,
-                    onClose: () => {
-                      location.reload();
-                    },
-                  });
-            })
+        setSelectedEvent(prevState => {
+            return {...prevState, volunteers}
+        })
+        showToaster({
+            message: "Voluntário removido com sucesso!",
+            autoClose: 2000
+        });
     }
-
-    // useEffect(() => {
-    //     let events = [];
-    //     let orgMail;
-    //     let orgPhone;
-
-    //     trackPromise(
-    //         axios
-    //             .get("https://holp-server.vercel.app/api/v1/user/solicitant",
-    //                 {headers: { "Authorization": "Bearer " + localStorage.getItem("Token")}}
-    //             )
-    //             .then((response) => {
-    //                 orgMail = response.data.email;
-    //                 orgPhone = response.data.phone
-    //                 response.data.events.map((event) => {
-    //                     event.email = orgMail;
-    //                     event.phone = orgPhone;
-    //                     events.push(event);
-    //                 })
-    //                 setEvents(events)
-    //             })
-    //             .catch((error) => console.log(error))
-    //     )
-    // }, [])
-
-    // useEffect(() => {
-    //     if(events.length > 0) {
-    //         let users = [];
-
-    //         axios
-    //             .get("https://holp-server.vercel.app/api/v1/user/volunteer",
-    //                 {headers: { "Authorization": "Bearer " + localStorage.getItem("Token")}}
-    //             )
-    //             .then((response) => {
-    //                 response.data.map((user) => {
-    //                     users.push(user);
-    //                 })
-    //                 setUsers(users)
-    //             })
-    //             .catch((error) => console.log(error))
-    //     }
-    // }, [events])
 
     return (
         <div style={{ margin: "9vh auto 0", width: "80%"}}>
@@ -151,7 +55,7 @@ const createdEvent = () => {
                 <Grid item xs={12} className="event-header">
                     <Typography variant="h4">Meus Trabalhos</Typography>
                 </Grid>
-                <Grid item container >
+                <Grid item container style={{gap: "1rem"}} >
                     {selectedEvent ?
                         <OrganizationEventDetails
                             closeModal={closeDetailsModal}
@@ -168,7 +72,7 @@ const createdEvent = () => {
                             photo={event.photo}
                             summary={event.summary}
                             details={event.details}
-                            volunteers={event.volunteers.length}
+                            volunteers={event.volunteers}
                             vacancies={event.totalVacancies}
                             initialDate={event.initialDate}
                             finalDate={event.finalDate}

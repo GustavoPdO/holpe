@@ -28,17 +28,17 @@ export const holpe = createMuiTheme({
       textAlign: "center",
       lineHeight: 1,
       marginTop: "8px",
-      color: "#208bb3",
+      color: "black",
     },
     subtitle2: {
       fontWeight: 100,
       fontSize: "1.5rem",
       textAlign: "center",
       lineHeight: 1,
-      color: "#208bb3",
+      color: "black",
     },
     h4: {
-      color: "#208bb3",
+      color: "black",
     },
     h3: {
       color: "#6d2d54",
@@ -46,10 +46,10 @@ export const holpe = createMuiTheme({
       fontWeight: 500,
     },
     h2: {
-      fontWeight: 100,
+      fontWeight: 400,
       fontSize: "1.2rem",
       textAlign: "start",
-      color: "#208bb3",
+      color: "black",
     },
     h1: {
       fontWeight: 400,
@@ -66,12 +66,15 @@ export const holpe = createMuiTheme({
   overrides: {
     MuiFormLabel: {
       root: {
-        fontSize: "1.2rem"
-      }
+        fontSize: "1.2rem",
+      },
     },
     MuiInputBase: {
       root: {
-        fontSize: "1.2rem"
+        fontSize: "1.2rem",
+      },
+      multiline: {
+        marginTop: "24px !important"
       }
     },
     MuiMobileStepper: {

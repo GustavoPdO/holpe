@@ -7,7 +7,7 @@ import logoMonitora from "../assets/logo-monitora.png";
 
 const Footer = () => (
   <Grid item container className="footer" justify="center" alignItems="center">
-    <span>Uma parceria entre</span>{" "}
+    <p>Uma parceria entre</p>&nbsp;
     <img src={logoIcmc} alt="logo do icmc" className="logo" />{" "}
     <img src={logoMonitora} alt="logo da Monitora" className="logo" />
   </Grid>

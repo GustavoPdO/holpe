@@ -1,11 +1,8 @@
 import React, { Fragment, useState, useEffect, useContext } from "react"
 import { store} from "../store"
-import { trackPromise } from "react-promise-tracker"
-import axios from "axios"
 import jwt from "jsonwebtoken"
 
-import { Grid, Typography, Paper, Avatar, TextField, Button, IconButton, useTheme, Input } from "@material-ui/core"
-import { PhoneMask } from "../design-system/components/MaskedInputs"
+import { Grid, Typography, Paper, Avatar, TextField, Button, IconButton } from "@material-ui/core"
 
 import facebookLogo from "../assets/external-logos/facebook-brands.svg"
 import instagramLogo from "../assets/external-logos/instagram-brands.svg"
@@ -13,7 +10,7 @@ import whatsappLogo from "../assets/external-logos/whatsapp-brands.svg"
 
 import { mockedUser } from "../data/mockedEvents"
 
-const UserProfile = (props) => {
+const UserProfile = () => {
     const { state, dispatch } = useContext(store)
     const userType = state.userType;
 
@@ -23,12 +20,12 @@ const UserProfile = (props) => {
     const [documentNumber, setDocumentNumber] = useState(state.documentNumber)
     const [email, setEmail] = useState(state.email)
     const [phone, setPhone] = useState(state.phone)
-    const [street, setStreet] = useState(state.address.street)
-    const [number, setNumber] = useState(state.address.number)
-    const [addressComplement, setAddressComplement] = useState(state.address.addressComplement)
-    const [city, setCity] = useState(state.address.city)
-    const [uf, setUF] = useState(state.address.uf)
-    const [postal, setPostal] = useState(state.postal)
+    const [street, setStreet] = useState(state.address?.street)
+    const [number, setNumber] = useState(state.address?.number)
+    const [addressComplement, setAddressComplement] = useState(state.address?.addressComplement)
+    const [city, setCity] = useState(state.address?.city)
+    const [uf, setUF] = useState(state.address?.uf)
+    const [postal, setPostal] = useState(state.address?.postal)
     const [facebook, setFacebook] = useState(state.facebook)
     const [instagram, setInstagram] = useState(state.instagram)
 
@@ -48,32 +45,8 @@ const UserProfile = (props) => {
         }
     }
 
-    // useEffect(() => {
-    //     trackPromise (
-    //         axios.get(
-    //             `https://holp-server.vercel.app/api/v1/user/${userType}`, 
-    //             {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
-    //             }
-    //         )
-    //         .then(({ data }) => {
-    //             setName(data.name? data.name : "")
-    //             setAvatar(data.photo? URL.createObjectURL(data.photo) : null)
-    //             setEmail(data.email? data.email : "")
-    //             setStreet(data.address.street? data.address.street : "")
-    //             setNumber(data.address.number? data.address.number : "")
-    //             setUF(data.address.state? data.address.state : "")
-    //             setPostal(data.address.zipcode? data.address.zipcode : "")
-    //             setCity(data.address.city? data.address.city : "")
-    //             setPhone(data.phone? data.phone : "")
-    //             if(userType === "solicitant"){
-    //                 setDocumentNumber(data.cnpj? data.cnpj : "")
-    //             }            
-    //         })
-    //         .catch(error => console.log(error.response))
-    //     )
-    // }, [])
-
     function editProfile() {
+        event.preventDefault()
         const isVolunteer = !email.includes("ong")
 
         const { password, cnpj } = state;
@@ -83,18 +56,15 @@ const UserProfile = (props) => {
           email,
           password,
           adress: {
-            street,
-            number,
-            city,
-            uf
+            street: street,
+            number: number,
+            city: city,
+            uf: uf
           },
           phone,
           cnpj,
           isVolunteer
         };
-    
-        const token = jwt.sign(data, "teste")
-        localStorage.setItem("Token", token)
     
         dispatch({
           type: "set_profile",
@@ -102,27 +72,6 @@ const UserProfile = (props) => {
         })
 
         setIsEditing(false)
-        // axios.patch(
-        //     `https://holp-server.vercel.app/api/v1/user/${userType}`,
-        //     {
-        //         name: name,
-        //         photo: avatar,
-        //         email: email,
-        //         adress: {
-        //             street: street,
-        //             number: number,
-        //             state: uf,
-        //             zipcode: postal,
-        //             city: city
-        //         },
-        //         phone: phone,
-        //         cpf: documentNumber,
-        //     },
-        //     {headers: { "Authorization": "Bearer " + localStorage.getItem("Token") }
-        //     }
-        // )
-        // .then((response) => console.log(response))
-        // .catch(error => console.log(error.response))
     }
 
     return (
@@ -143,7 +92,7 @@ const UserProfile = (props) => {
                     }}>
                     <Grid item container>
                         <Grid item container className="settings-row">
-                            <Grid item sm={2}>
+                            <Grid item sm={12} md={2}>
                                 <input 
                                     accept="image/*"
                                     id="avatar-upload"
@@ -158,9 +107,9 @@ const UserProfile = (props) => {
                                     </IconButton>
                                 </label>
                             </Grid>
-                            <Grid item container sm={10}>
-                                <Grid item container sm={12}>
-                                    <Grid item sm={8} style={{paddingRight: "16px"}}>
+                            <Grid item container md={10}>
+                                <Grid item container spacing={2}>
+                                    <Grid item container sm={12} md={8}>
                                         <TextField
                                             color="secondary"
                                             label={userType === "solicitant" ? "Razão Social" : "Nome"}
@@ -172,7 +121,7 @@ const UserProfile = (props) => {
                                             onChange={(e) => setName(e.target.value)}
                                         />
                                     </Grid>
-                                    <Grid item sm={4} style={{paddingLeft: "16px"}}>
+                                    <Grid item container sm={12} md={4}>
                                         <TextField
                                             fullWidth
                                             color="secondary"
@@ -185,57 +134,45 @@ const UserProfile = (props) => {
                                         />
                                     </Grid>
                                 </Grid>
-                                <Grid item container sm={12} justify="space-between">
-                                    <Grid item container sm={4} style={{paddingRight: "16px"}}>
-                                        <Grid item container sm={2} alignItems="center">
-                                            <img src={facebookLogo} alt="logo do facebook" style={{height: "36px"}} />
-                                        </Grid>
-                                        <Grid item sm={10} style={{paddingLeft: "8px"}}>
-                                            <TextField
-                                                color="secondary"
-                                                label="Facebook"
-                                                id="facebook"
-                                                type="text"
-                                                className="settings-form"
-                                                value={facebook}
-                                                disabled={!isEditing}
-                                                onChange={(e) => setFacebook(e.target.value)}
-                                            />
-                                        </Grid>
+                                <Grid item container spacing={2}>
+                                    <Grid item container md={4} justifyContent="flex-start" alignItems="flex-end" style={{flexWrap: "nowrap", height: "fit-content"}}>
+                                        <img src={facebookLogo} alt="logo do facebook" style={{height: "36px", marginRight: "0.5rem"}} />
+                                        <TextField
+                                            color="secondary"
+                                            label="Facebook"
+                                            id="facebook"
+                                            type="text"
+                                            className="settings-form"
+                                            value={facebook}
+                                            disabled={!isEditing}
+                                            onChange={(e) => setFacebook(e.target.value)}
+                                        />
                                     </Grid>
-                                    <Grid item container sm={4} style={{padding: "0 16px"}}>
-                                        <Grid item container sm={2} alignItems="center">
-                                            <img src={instagramLogo} alt="logo do instagram" style={{height: "36px"}} />
-                                        </Grid>
-                                        <Grid item sm={10} style={{paddingLeft: "8px"}}>
-                                            <TextField
-                                                color="secondary"
-                                                label="Instagram"
-                                                id="instagram"
-                                                type="text"
-                                                className="settings-form"
-                                                value={instagram}
-                                                disabled={!isEditing}
-                                                onChange={(e) => setInstagram(e.target.value)}
-                                            />
-                                        </Grid>
+                                    <Grid item container md={4} justifyContent="flex-start" alignItems="flex-end" style={{flexWrap: "nowrap", height: "fit-content"}}>
+                                        <img src={instagramLogo} alt="logo do instagram" style={{height: "36px", marginRight: "0.5rem"}} />
+                                        <TextField
+                                            color="secondary"
+                                            label="Instagram"
+                                            id="instagram"
+                                            type="text"
+                                            className="settings-form"
+                                            value={instagram}
+                                            disabled={!isEditing}
+                                            onChange={(e) => setInstagram(e.target.value)}
+                                        />
                                     </Grid>
-                                    <Grid item container sm={4} style={{paddingLeft: "16px"}}>
-                                        <Grid item container sm={2} alignItems="center">
-                                            <img src={whatsappLogo} alt="logo do whatsapp" style={{height: "36px"}} />
-                                        </Grid>
-                                        <Grid item sm={10} style={{paddingLeft: "8px"}}>
-                                            <TextField
-                                                color="secondary"
-                                                label="WhatsApp"
-                                                id="whatsapp"
-                                                type="text"
-                                                className="settings-form"
-                                                value={phone}
-                                                disabled={!isEditing}
-                                                onChange={(e) => setPhone(e.target.value)}
-                                            />
-                                        </Grid>
+                                    <Grid item container md={4} justifyContent="flex-start" alignItems="flex-end" style={{flexWrap: "nowrap", height: "fit-content"}}>
+                                        <img src={whatsappLogo} alt="logo do whatsapp" style={{height: "36px", marginRight: "0.5rem"}} />
+                                        <TextField
+                                            color="secondary"
+                                            label="WhatsApp"
+                                            id="whatsapp"
+                                            type="text"
+                                            className="settings-form"
+                                            value={phone}
+                                            disabled={!isEditing}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                        />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -261,8 +198,8 @@ const UserProfile = (props) => {
                                 onChange={(e) => setDescription(e.target.value)}
                             />
                         </Grid>
-                        <Grid item container className="settings-row">
-                            <Grid item sm={7} style={{paddingRight: "16px"}}>
+                        <Grid item container spacing={2} className="settings-row">
+                            <Grid item container md={7}>
                                 <TextField
                                     color="secondary"
                                     label="Endereço"
@@ -274,7 +211,7 @@ const UserProfile = (props) => {
                                     onChange={(e) => setStreet(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item sm={2} style={{padding: "0px 16px"}}>
+                            <Grid item container md={2}>
                                 <TextField
                                     color="secondary"
                                     label="Número"
@@ -286,7 +223,7 @@ const UserProfile = (props) => {
                                     onChange={(e) => setNumber(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item sm={3} style={{paddingLeft: "16px"}}>
+                            <Grid item container md={3}>
                                 <TextField
                                     color="secondary"
                                     label="Complemento"
@@ -299,8 +236,8 @@ const UserProfile = (props) => {
                                 />
                             </Grid>
                         </Grid>
-                        <Grid item container className="settings-row">
-                            <Grid item sm={3} style={{paddingRight: "16px"}}>
+                        <Grid item container spacing={2} className="settings-row">
+                            <Grid item container md={3}>
                                 <TextField
                                     color="secondary"
                                     label="CEP"
@@ -312,7 +249,7 @@ const UserProfile = (props) => {
                                     onChange={(e) => setPostal(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item sm={5} style={{padding: "0 16px"}}>
+                            <Grid item container xs={10} md={7}>
                                 <TextField
                                     color="secondary"
                                     label="Cidade"
@@ -324,7 +261,7 @@ const UserProfile = (props) => {
                                     onChange={(e) => setCity(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item sm={1} style={{padding: "0 16px"}}>
+                            <Grid item container xs={2} md={2}>
                                 <TextField
                                     color="secondary"
                                     label="UF"
@@ -336,37 +273,10 @@ const UserProfile = (props) => {
                                     onChange={(e) => setUF(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item container sm={3} style={{paddingLeft: "16px"}} justify="flex-end" alignContent="flex-end">
-                                {isEditing ?
-                                    <Fragment>
-                                        <Button 
-                                            variant="contained" 
-                                            color="secondary" 
-                                            onClick={() => setIsEditing(false)}>
-                                                CANCELAR
-                                        </Button>
-                                        <Button
-                                            style={{ marginLeft: "32px" }}
-                                            variant="contained" 
-                                            color="secondary" 
-                                            onClick={editProfile}>
-                                                SALVAR
-                                        </Button>
-                                    </Fragment>
-                                :
-
-                                    <Button 
-                                        variant="contained" 
-                                        color="secondary" 
-                                        onClick={() => setIsEditing(true)}>
-                                            EDITAR PERFIL
-                                    </Button>
-                                }
-                            </Grid>
                         </Grid>
-                        {userType === "solicitant" ?
-                            <Grid item container className="settings-row">
-                                <Grid item sm={2} style={{paddingRight: "16px"}}>
+                        {userType.userType === "solicitant" ?
+                            <Grid item container spacing={2} className="settings-row">
+                                <Grid item container sm={12} md={3}>
                                     <TextField
                                         color="secondary"
                                         label="CNPJ"
@@ -381,6 +291,33 @@ const UserProfile = (props) => {
                         :
                             null
                         }
+                        <Grid item container className="settings-row" justify="flex-end" alignContent="flex-end">
+                            {isEditing ?
+                                <Fragment>
+                                    <Button 
+                                        variant="contained" 
+                                        color="secondary" 
+                                        onClick={() => setIsEditing(false)}>
+                                            CANCELAR
+                                    </Button>
+                                    <Button
+                                        style={{ marginLeft: "32px" }}
+                                        variant="contained" 
+                                        color="secondary" 
+                                        onClick={editProfile}>
+                                            SALVAR
+                                    </Button>
+                                </Fragment>
+                            :
+
+                                <Button 
+                                    variant="contained" 
+                                    color="secondary" 
+                                    onClick={() => setIsEditing(true)}>
+                                        EDITAR PERFIL
+                                </Button>
+                            }
+                        </Grid>
                     </Grid>
                 </Paper>
             </Grid>

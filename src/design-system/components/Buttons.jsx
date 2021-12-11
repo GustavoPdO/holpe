@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 export const NavButton = withStyles({
   root: {
     height: "inherit",
-    width: "calc(3vh * 6)",
+    width: "120px",
     fontFamily: "Roboto",
     fontWeight: 100,
     fontSize: "3vh",

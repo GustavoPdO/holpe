@@ -22,9 +22,8 @@ const StateProvider = ({ children }) => {
             case "set_profile":
                 newState = {
                     ...action.data,
-                    userType: action.data.isVolunteer ? "volunteer" : "solicitant"
+                    userType: authenticateUser()
                 }
-                console.log(newState)
                 return newState;
             default:
                 throw new Error();
