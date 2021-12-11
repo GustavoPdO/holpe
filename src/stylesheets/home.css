@@ -4,7 +4,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 82vh;
+  height: calc(100vh - 168px);
   width: auto;
 }
 

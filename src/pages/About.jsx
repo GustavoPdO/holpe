@@ -10,7 +10,7 @@ import about_2 from "../assets/about_2.png";
 const About = () => {
   return (
     <Fragment>
-      <Grid container style={{height: "82vh"}} alignContent="center">
+      <Grid container style={{height: "calc(100vh - 168px)"}} alignContent="center">
         <Grid item container alignItems="center" style={{height: "50%", padding: "16px"}}>
           <Grid item sm={1} />
           <Grid item sm={3}>

@@ -5,11 +5,11 @@ body {
 
 .footer {
   background-color: #e2fafc;
-  height: 72px;
+  height: 84px;
 }
 
 .footer > .logo {
-  height: 60%;
+  height: 60px;
   margin: 0px 32px;
 }
 

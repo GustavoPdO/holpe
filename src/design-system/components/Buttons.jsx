@@ -6,12 +6,12 @@ import Grid from "@material-ui/core/Grid";
 export const NavButton = withStyles({
   root: {
     height: "inherit",
-    width: "120px",
     fontFamily: "Roboto",
     fontWeight: 100,
     fontSize: "3vh",
     textTransform: "none",
     color: "white",
+    padding: "0 16px",
     "&:hover": {
       height: "inherit",
       backgroundColor: "rgba(0, 0, 0, 0.4)",
