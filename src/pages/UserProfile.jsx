@@ -75,7 +75,7 @@ const UserProfile = () => {
     }
 
     return (
-        <div style={{ margin: "9vh auto 0", width: "80%" }}>
+        <div style={{ position: "fixed", top: "84px", widht: "100vw" }}>
             <Grid container justify="center" alignContent="flex-start">
                 <Grid item xs={12} className="event-header" style={{height: "10%"}}>
                     <Typography variant="h4">Configurações da Conta</Typography>
