@@ -120,7 +120,7 @@ const CreateEvent = (props) => {
   }
 
   return (
-    <div style={{ position: "fixed", top: "84px", width: "100%" }}>
+    <div style={{ margin: "84px 10% 0"}}>
       <Grid container justify="center" alignContent="flex-start" style={{ padding: "0 10%" }}>
         <Grid item xs={12} className="event-header" style={{ height: "10%" }}>
           <Typography variant="h4">Criar Evento</Typography>
