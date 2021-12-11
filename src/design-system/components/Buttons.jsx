@@ -8,7 +8,7 @@ export const NavButton = withStyles({
     height: "inherit",
     fontFamily: "Roboto",
     fontWeight: 100,
-    fontSize: "3vh",
+    fontSize: "2rem",
     textTransform: "none",
     color: "white",
     padding: "0 16px",
@@ -24,7 +24,7 @@ export const LoginButton = withStyles({
   root: {
     minHeight: "30px",
     width: "80px",
-    fontSize: "1.9vh",
+    fontSize: "1rem",
     color: "#0179A7",
     background: "#E2FAFC",
     "&:hover": {
@@ -43,14 +43,14 @@ export const IconButton = withStyles(() => ({
 }))((props) => (
   <Button {...props}>
     <Grid container alignItems="center">
-      <Grid item sm={2}>
+      <Grid item xs={2}>
         <img
           src={props.icon}
           alt=""
-          style={{ height: "4vw", maxHeight: "36px", paddingTop: "20%" }}
+          style={{ height: "100%", maxHeight: "36px", paddingTop: "20%" }}
         />
       </Grid>
-      <Grid item xs={12} sm={10}>
+      <Grid item xs={10}>
         <span>{props.msg}</span>
       </Grid>
     </Grid>

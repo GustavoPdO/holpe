@@ -7,6 +7,5 @@ export const Appbar = withStyles(() => ({
     position: "fixed",
     top: 0,
     backgroundColor: "#AE0F8B",
-    height: "9vh",
   },
 }))((props) => <Grid {...props}></Grid>);

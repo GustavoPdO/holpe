@@ -52,14 +52,14 @@ const Navbar = () => {
       <Appbar container component="nav" alignItems="center" position="fixed" style={{zIndex: 1, padding: "0 0.75rem"}}>
         <Grid item container xs={11} className="navbar">
           <img src={logo} alt="" className="logo" />
-          <NavButton className="page-btn" onClick={() => navigate("/")}>
+          <NavButton onClick={() => navigate("/")}>
             Home
           </NavButton>
-          <NavButton className="page-btn" onClick={() => navigate("/about")}>Sobre</NavButton>
-          <NavButton className="page-btn" onClick={() => navigate("/events")}>
+          <NavButton onClick={() => navigate("/about")}>Sobre</NavButton>
+          <NavButton onClick={() => navigate("/events")}>
             Trabalhos
           </NavButton>
-          <NavButton className="page-btn" onClick={() => navigate("/team")}>Equipe</NavButton>
+          <NavButton onClick={() => navigate("/team")}>Equipe</NavButton>
         </Grid>
         <Grid item container xs={1} alignItems="center" justify="center">
           {userType ? (
