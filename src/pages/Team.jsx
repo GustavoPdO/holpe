@@ -15,8 +15,8 @@ import rafaela from "../assets/members/rafaela.jpg"
 
 const Team = () => {
     return (
-        <div style={{ margin: "9vh auto 0", width: "80%"}}>
-            <Grid container justify="center">
+        <div style={{ position: "fixed", width: "100%", top: "84px" }}>
+            <Grid container justify="center" style={{ padding: "0 10%"}}>
                 <Grid item xs={12} className="event-header">
                     <Typography variant="h4">Equipe</Typography>
                 </Grid>

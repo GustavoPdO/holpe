@@ -75,8 +75,8 @@ const UserProfile = () => {
     }
 
     return (
-        <div style={{ position: "fixed", top: "84px", widht: "100vw" }}>
-            <Grid container justify="center" alignContent="flex-start">
+        <div style={{ position: "fixed", top: "84px", width: "100%" }}>
+            <Grid container justify="center" alignContent="flex-start" style={{ padding: "0 10%"}}>
                 <Grid item xs={12} className="event-header" style={{height: "10%"}}>
                     <Typography variant="h4">Configurações da Conta</Typography>
                 </Grid>
@@ -84,7 +84,7 @@ const UserProfile = () => {
                     style={{
                         backgroundColor: "#E2FAFC",
                         width: "100%",
-                        height: "calc(80% - 9vh)",
+                        height: "calc(80% - 84px)",
                         marginBottom: "24px",
                         minHeight: "200px",
                         borderRadius: "8px",

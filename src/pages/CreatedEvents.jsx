@@ -50,8 +50,8 @@ const createdEvent = () => {
     }
 
     return (
-        <div style={{ margin: "9vh auto 0", width: "80%"}}>
-            <Grid container justify="center">
+        <div style={{ position: "fixed", top: "84px", width: "100%" }}>
+            <Grid container justify="center" style={{ padding: "0 10%" }}>
                 <Grid item xs={12} className="event-header">
                     <Typography variant="h4">Meus Trabalhos</Typography>
                 </Grid>
