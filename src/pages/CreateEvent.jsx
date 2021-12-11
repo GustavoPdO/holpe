@@ -9,7 +9,6 @@ import {
   Paper,
   TextField,
   Button,
-  useTheme,
   Avatar,
   FormControlLabel,
   Checkbox,
@@ -27,9 +26,7 @@ const CLOUDINARY_UPLOAD_PRESET = "qzkjhpc8";
 const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/dwzsqytq7/image/upload";
 
-const CreateEvent = (props) => {
-  const theme = useTheme();
-
+const CreateEvent = () => {
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoURL, setPhotoURL] = useState("");
@@ -45,8 +42,6 @@ const CreateEvent = (props) => {
   const [transport, setTransport] = useState(false);
   const [certificate, setCertificate] = useState(false);
   const [food, setFood] = useState(false);
-
-  const [isEditing, setIsEditing] = useState(false);
 
   function createEvent() {
     const data = {
@@ -74,7 +69,7 @@ const CreateEvent = (props) => {
       .post("https://holp-server.vercel.app/api/v1/event", data, {
         headers: { Authorization: "Bearer " + localStorage.getItem("Token") },
       })
-      .then((response) => {
+      .then(() => {
         showToaster({
           message: "Evento criado com sucesso!",
           autoClose: 2000,

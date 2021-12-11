@@ -3,8 +3,6 @@ import { Grid, Typography } from "@material-ui/core"
 
 import { Member } from "../design-system/components/Cards"
 
-import config_bg from "../assets/config-bg.png"
-
 import gustavo from "../assets/members/gustavo.jpg"
 import andrey from "../assets/members/andrey.jpg"
 import cocenza from "../assets/members/cocenza.jpg"
