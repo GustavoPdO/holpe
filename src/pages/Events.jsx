@@ -61,7 +61,7 @@ const Events = () => {
                 photo={event.photo}
                 summary={event.summary}
                 details={event.details}
-                volunteers={event.volunteers.length}
+                volunteers={event.volunteers}
                 vacancies={event.totalVacancies}
                 initialDate={event.initialDate}
                 finalDate={event.finalDate}
@@ -77,7 +77,7 @@ const Events = () => {
           photo={event.photo}
           summary={event.summary}
           details={event.details}
-          volunteers={event.volunteers.length}
+          volunteers={event.volunteers}
           vacancies={event.totalVacancies}
           initialDate={event.initialDate}
           finalDate={event.finalDate}
@@ -93,7 +93,7 @@ const Events = () => {
           photo={event.photo}
           summary={event.summary}
           details={event.details}
-          volunteers={event.volunteers.length}
+          volunteers={event.volunteers}
           vacancies={event.totalVacancies}
           initialDate={event.initialDate}
           finalDate={event.finalDate}
