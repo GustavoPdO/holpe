@@ -15,12 +15,12 @@ import rafaela from "../assets/members/rafaela.jpg"
 
 const Team = () => {
     return (
-        <div style={{ position: "fixed", width: "100%", top: "84px" }}>
-            <Grid container justify="center" style={{ padding: "0 10%"}}>
-                <Grid item xs={12} className="event-header">
+        <div style={{ marginTop: "84px"}}>
+            <Grid container justify="center">
+                <Grid item xs={12} className="event-header" style={{margin: "0 5rem"}}>
                     <Typography variant="h4">Equipe</Typography>
                 </Grid>
-                <Grid item container justifyContent="space-between">
+                <Grid item container justifyContent="space-between" style={{margin: "0 5rem"}}>
                     <Grid item container md={5} direction="column" style={{gap: "1rem"}}>
                         <Member photo={gustavo} name="Gustavo Pedralino" email="gpedralino@usp.br" alt="Homem branco de óculos azul escuro e fone de ouvido branco sob céu azul" />
                         <Member photo={andrey} name="Andrey Lucas" email="andrey.garcia@usp.br" alt="Jovem branco de óculos preto posando em frente ao espelho com o celular" />

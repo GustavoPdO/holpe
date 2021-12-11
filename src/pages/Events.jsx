@@ -104,8 +104,8 @@ const Events = () => {
   }
 
   return (
-    <div style={{ position: "fixed", top: "84px", width: "100%" }}>
-      <Grid container justify="center" style={{ padding: "0 10%"}}>
+    <div style={{ marginTop: "84px"}}>
+      <Grid container justify="center" style={{ padding: "0 5rem"}}>
         <Grid item xs={12} className="event-header">
           <Typography variant="h4">Trabalhos</Typography>
         </Grid>

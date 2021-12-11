@@ -79,7 +79,7 @@ export const Event = withStyles(() => ({
 export const Member = withStyles(() => ({
   root: {
     backgroundColor: "#E2FAFC",
-    maxWidt: "600px",
+    maxWidth: "600px",
     minHeight: "140px",
     borderRadius: "8px",
   },
