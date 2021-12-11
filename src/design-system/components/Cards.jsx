@@ -18,6 +18,7 @@ import Calendar from "@material-ui/icons/Event";
 export const Event = withStyles(() => ({
   root: {
     backgroundColor: "#E2FAFC",
+    width: "100%",
     minHeight: "10rem",
     borderRadius: "0.5rem"
   },
