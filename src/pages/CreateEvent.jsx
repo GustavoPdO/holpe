@@ -78,8 +78,7 @@ const CreateEvent = () => {
           },
         });
       })
-      .catch((error) => {
-        console.warn("error", error);
+      .catch(() => {
         showToaster({
           type: "error",
           message: "Falha na inscrição!",
@@ -106,10 +105,8 @@ const CreateEvent = () => {
             headers: { "X-Requested-With": "XMLHttpRequest" },
           })
           .then((response) => {
-            console.log(response.data);
             setPhotoURL(response.data.secure_url);
           })
-          .catch((error) => console.log("error", error))
       );
     }
   }

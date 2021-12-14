@@ -68,20 +68,20 @@ const App = () => (
         <Navbar />
         <ToastContainer />
         <Router>
-          <Root path="/">
-            <Home path="/" />
-            <About path="/about" />
-            <AuthenticatedRoute as={Login} path="/login" />
-            <AuthenticatedRoute as={VolunteerRegister} path="/volunteer" />
-            <AuthenticatedRoute as={OrganizationRegister} path="/organization" />
-          </Root>
-          
-          <Events path="/events" />
-          <Team path="/team" />
+            <Root path="/">
+              <Home path="/" />
+              <About path="/about" />
+              <AuthenticatedRoute as={Login} path="/login" />
+              <AuthenticatedRoute as={VolunteerRegister} path="/volunteer" />
+              <AuthenticatedRoute as={OrganizationRegister} path="/organization" />
+            </Root>
+            
+            <Events path="/events" />
+            <Team path="/team" />
 
-          <PrivateRoute as={UserProfile} path="user-profile" />
-          <PrivateRoute as={CreateEvent} path="create-event" />
-          <PrivateRoute as={CreatedEvents} path="your-events" />
+            <PrivateRoute as={UserProfile} path="user-profile" />
+            <PrivateRoute as={CreateEvent} path="create-event" />
+            <PrivateRoute as={CreatedEvents} path="your-events" />
         </Router>
       </ThemeProvider>
     </StateProvider>
